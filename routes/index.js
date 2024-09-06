@@ -1,12 +1,20 @@
+// routes/index.js
+
 import { Router } from 'express';
 import AppController from '../controllers/AppController';
+import UsersController from '../controllers/UsersController';
+import FilesController from '../controllers/FilesController';
+import AuthController from '../controllers/AuthController';
 
 const router = Router();
 
-// Route for checking Redis and DB status
-router.get('/status', AppController.getStatus);
+router.post('/users', UsersController.postNew);
+router.post('/files', FilesController.postUpload);
 
-// Route for getting the number of users and files
+router.get('/connect', AuthController.getConnect);
+router.get('/disconnect', AuthController.getDisconnect);
+router.get('/users/me', UsersController.getMe);
+router.get('/status', AppController.getStatus);
 router.get('/stats', AppController.getStats);
 
 export default router;
