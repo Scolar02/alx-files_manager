@@ -1,14 +1,13 @@
 import mongodb from 'mongodb';
-// eslint-disable-next-line no-unused-vars
 import Collection from 'mongodb/lib/collection';
 import envLoader from './env_loader';
 
 /**
- * Handles the connection to a MongoDB instance.
+ * Represents a MongoDB client.
  */
 class DBClient {
   /**
-   * Initializes a new instance of DBClient and connects to MongoDB.
+   * Creates a new DBClient instance.
    */
   constructor() {
     envLoader();
@@ -22,40 +21,40 @@ class DBClient {
   }
 
   /**
-   * Confirms whether the client is connected to MongoDB.
-   * @returns {boolean} True if connected, otherwise false.
+   * Checks if this client's connection to the MongoDB server is active.
+   * @returns {boolean}
    */
   isAlive() {
     return this.client.isConnected();
   }
 
   /**
-   * Gets the count of user documents in the 'users' collection.
-   * @returns {Promise<number>} The number of user documents.
+   * Retrieves the number of users in the database.
+   * @returns {Promise<Number>}
    */
   async nbUsers() {
     return this.client.db().collection('users').countDocuments();
   }
 
   /**
-   * Gets the count of file documents in the 'files' collection.
-   * @returns {Promise<number>} The number of file documents.
+   * Retrieves the number of files in the database.
+   * @returns {Promise<Number>}
    */
   async nbFiles() {
     return this.client.db().collection('files').countDocuments();
   }
 
   /**
-   * Provides access to the 'users' collection in the database.
-   * @returns {Promise<Collection>} The MongoDB 'users' collection.
+   * Retrieves a reference to the `users` collection.
+   * @returns {Promise<Collection>}
    */
   async usersCollection() {
     return this.client.db().collection('users');
   }
 
   /**
-   * Provides access to the 'files' collection in the database.
-   * @returns {Promise<Collection>} The MongoDB 'files' collection.
+   * Retrieves a reference to the `files` collection.
+   * @returns {Promise<Collection>}
    */
   async filesCollection() {
     return this.client.db().collection('files');
